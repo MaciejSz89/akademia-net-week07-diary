@@ -14,7 +14,7 @@ namespace Diary
             
         }
 
-        private static string _connectionString = $"Server={Properties.Settings.Default.ServerName};Database={Properties.Settings.Default.DatabaseName};User Id={Properties.Settings.Default.UserId};Password={Properties.Settings.Default.Password};";
+        private static string _connectionString = $@"Server={Properties.Settings.Default.ServerAddress}\{Properties.Settings.Default.ServerName};Database={Properties.Settings.Default.DatabaseName};User Id={Properties.Settings.Default.UserId};Password={Properties.Settings.Default.Password};";
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Group> Groups { get; set; }

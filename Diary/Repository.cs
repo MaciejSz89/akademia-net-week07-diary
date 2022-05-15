@@ -23,10 +23,11 @@ namespace Diary
 
         public static bool IsConnectionAvailable()
         {
+            var serverAddress = Properties.Settings.Default.ServerAddress;
             var serverName = Properties.Settings.Default.ServerName;
             var userId = Properties.Settings.Default.UserId;
             var password = Properties.Settings.Default.Password;
-            var connectionString = $"Server={serverName};User Id={userId};Password={password};";
+            var connectionString = $@"Server={serverAddress}\{serverName};User Id={userId};Password={password};";
 
             return IsConnectionAvailable(connectionString);
         }

@@ -25,6 +25,7 @@ namespace Diary.ViewModels
 
         private void LoadConnectionSettings()
         {
+            ServerAddress = Properties.Settings.Default.ServerAddress;
             ServerName = Properties.Settings.Default.ServerName;
             DatabaseName = Properties.Settings.Default.DatabaseName;
             UserId = Properties.Settings.Default.UserId;
@@ -45,7 +46,7 @@ namespace Diary.ViewModels
 
         private async Task Confirm(object obj)
         {
-            var connectionString = $"Server={ServerName};User Id={UserId};Password={Password};";
+            var connectionString = $@"Server={ServerAddress}\{ServerName};User Id={UserId};Password={Password};";
 
             if (Repository.IsConnectionAvailable(connectionString))
             {
@@ -87,6 +88,7 @@ namespace Diary.ViewModels
 
         private void SaveConnectionSettings()
         {
+            Properties.Settings.Default.ServerAddress = ServerAddress;
             Properties.Settings.Default.ServerName = ServerName;
             Properties.Settings.Default.DatabaseName = DatabaseName;
             Properties.Settings.Default.UserId = UserId;
@@ -98,6 +100,19 @@ namespace Diary.ViewModels
 
         public ICommand ConfirmCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+
+        private string _serverAddress;
+
+        public string ServerAddress
+        {
+            get { return _serverAddress; }
+            set
+            {
+                _serverAddress = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private string _serverName;
 

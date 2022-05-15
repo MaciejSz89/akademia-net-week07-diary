@@ -9,9 +9,10 @@
         mc:Ignorable="d"
         Name="ConnectionStringWindow"
         WindowStartupLocation="CenterScreen"
-        Title="ConnectionSettingsView" Height="220" Width="400">
+        Title="ConnectionSettingsView" Height="260" Width="400">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,19 +24,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Serwer:" Margin="5"/>
-        <TextBox Grid.Column="1" Margin="5" Text="{Binding ServerName}"/>
+        <Label Content="Adres serwera:" Margin="5"/>
+        <TextBox Grid.Column="1" Margin="5" Text="{Binding ServerAddress}"/>
+
+        <Label Grid.Row="1"  Content="Nazwa serwera:" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ServerName}"/>
         
-        <Label Grid.Row="1" Content="Baza danych:" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding DatabaseName}"/>
+        <Label Grid.Row="2" Content="Baza danych:" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding DatabaseName}"/>
 
-        <Label Grid.Row="2" Content="Użytkownik:" Margin="5"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding UserId}"/>
+        <Label Grid.Row="3" Content="Użytkownik:" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding UserId}"/>
 
-        <Label Grid.Row="3" Content="Hasło:" Margin="5"/>
-        <components:BindablePasswordBox Password="{Binding Password}"  Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <Label Grid.Row="4" Content="Hasło:" Margin="5"/>
+        <components:BindablePasswordBox Password="{Binding Password}"  Grid.Row="4" Grid.Column="1" Margin="5"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right">
             <Button 
                 Command="{Binding CloseCommand}"                
                 CommandParameter="{Binding ElementName=ConnectionStringWindow}"

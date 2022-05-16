@@ -29,13 +29,17 @@ namespace Diary.ViewModels
 
         public ConnectionSettingsViewModel()
         {
-            ConfirmCommand = new AsyncRelayCommand(Confirm);
-            CloseCommand = new RelayCommand(Close);
+        
             ConnectionSettings = new ConnectionSettings();
- 
 
+            ConfirmCommand = new AsyncRelayCommand(Confirm, CanConfirm);
+            CloseCommand = new RelayCommand(Close);
         }
 
+        private bool CanConfirm(object arg)
+        {
+            return ConnectionSettings.IsValid;
+        }
 
         private void Close(object obj)
         {

@@ -87,12 +87,12 @@ namespace Diary
                         if (string.IsNullOrWhiteSpace(ServerAddress))
                         {
                             Error = "Pole Adres serwera jest wymagane.";
-                            _isServerAddressValid = true;
+                            _isServerAddressValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isServerAddressValid = false;
+                            _isServerAddressValid = true;
                         }
                         break;
 
@@ -100,12 +100,12 @@ namespace Diary
                         if (string.IsNullOrWhiteSpace(ServerName))
                         {
                             Error = "Pole Nazwa serwera jest wymagane.";
-                            _isServerNameValid = true;
+                            _isServerNameValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isServerNameValid = false;
+                            _isServerNameValid = true;
                         }
                         break;
 
@@ -113,12 +113,12 @@ namespace Diary
                         if (string.IsNullOrWhiteSpace(DatabaseName))
                         {
                             Error = "Pole Baza danych jest wymagane.";
-                            _isDatabaseNameValid = true;
+                            _isDatabaseNameValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isDatabaseNameValid = false;
+                            _isDatabaseNameValid = true;
                         }
                         break;
 
@@ -126,12 +126,12 @@ namespace Diary
                         if (string.IsNullOrWhiteSpace(UserId))
                         {
                             Error = "Pole Użytkownik jest wymagane.";
-                            _isUserIdValid = true;
+                            _isUserIdValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isUserIdValid = false;
+                            _isUserIdValid = true;
                         }
                         break;
 
@@ -139,12 +139,12 @@ namespace Diary
                         if (string.IsNullOrWhiteSpace(Password))
                         {
                             Error = "Pole Hasło jest wymagane.";
-                            _isPasswordValid = true;
+                            _isPasswordValid = false;
                         }
                         else
                         {
                             Error = string.Empty;
-                            _isPasswordValid = false;
+                            _isPasswordValid = true;
                         }
                         break;
 

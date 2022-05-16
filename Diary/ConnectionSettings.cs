@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace Diary
 {
-    public class ConnectionSettings
+    public class ConnectionSettings : IDataErrorInfo
     {
+
+        private bool _isServerAddressValid;
+        private bool _isServerNameValid;
+        private bool _isDatabaseNameValid;
+        private bool _isUserIdValid;
+        private bool _isPasswordValid;
+
         public string ServerAddress
         {
             get
@@ -67,6 +75,87 @@ namespace Diary
             }
         }
 
+        public string Error { get; set; }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(ServerAddress):
+                        if (string.IsNullOrWhiteSpace(ServerAddress))
+                        {
+                            Error = "Pole Adres serwera jest wymagane.";
+                            _isServerAddressValid = true;
+                        }
+                        else
+                        {
+                            Error = string.Empty;
+                            _isServerAddressValid = false;
+                        }
+                        break;
+
+                    case nameof(ServerName):
+                        if (string.IsNullOrWhiteSpace(ServerName))
+                        {
+                            Error = "Pole Nazwa serwera jest wymagane.";
+                            _isServerNameValid = true;
+                        }
+                        else
+                        {
+                            Error = string.Empty;
+                            _isServerNameValid = false;
+                        }
+                        break;
+
+                    case nameof(DatabaseName):
+                        if (string.IsNullOrWhiteSpace(DatabaseName))
+                        {
+                            Error = "Pole Baza danych jest wymagane.";
+                            _isDatabaseNameValid = true;
+                        }
+                        else
+                        {
+                            Error = string.Empty;
+                            _isDatabaseNameValid = false;
+                        }
+                        break;
+
+                    case nameof(UserId):
+                        if (string.IsNullOrWhiteSpace(UserId))
+                        {
+                            Error = "Pole Użytkownik jest wymagane.";
+                            _isUserIdValid = true;
+                        }
+                        else
+                        {
+                            Error = string.Empty;
+                            _isUserIdValid = false;
+                        }
+                        break;
+
+                    case nameof(Password):
+                        if (string.IsNullOrWhiteSpace(Password))
+                        {
+                            Error = "Pole Hasło jest wymagane.";
+                            _isPasswordValid = true;
+                        }
+                        else
+                        {
+                            Error = string.Empty;
+                            _isPasswordValid = false;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                return Error;
+            }
+        }
+
+
         public bool Save()
         {
             if (!IsConnectionAvailable())
@@ -101,6 +190,14 @@ namespace Diary
             }
 
             return true;
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                return _isServerAddressValid && _isServerNameValid && _isUserIdValid && _isPasswordValid;
+            }
         }
     }
 }

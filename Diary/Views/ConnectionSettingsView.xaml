@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"                 
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Diary.Views"
-        xmlns:components="clr-namespace:Diary.Components"  
+        xmlns:parent="clr-namespace:Diary"       
+        xmlns:local="clr-namespace:Diary.Views" 
         mc:Ignorable="d"
         Name="ConnectionStringWindow"
         WindowStartupLocation="CenterScreen"
@@ -55,13 +55,15 @@
                         ValidatesOnDataErrors=True}"/>
 
         <Label Grid.Row="4" Content="Hasło:" Margin="5"/>
-        <components:BindablePasswordBox 
-                            Password="{Binding ConnectionSettings.Password, 
-                            UpdateSourceTrigger=PropertyChanged,
-                            ValidatesOnDataErrors=True}"  
-                            Grid.Row="4" 
-                            Grid.Column="1" 
-                            Margin="5"/>
+        <PasswordBox parent:PasswordHelper.Attach="True" 
+                        parent:PasswordHelper.Password="{Binding ConnectionSettings.Password,                                              
+                        Mode=TwoWay,                                             
+                        UpdateSourceTrigger=PropertyChanged,                                            
+                        ValidatesOnDataErrors=True}"                                             
+                        Grid.Row="4" 
+                        Grid.Column="1" 
+                        Margin="5"/>
+
 
         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right">
             <Button 

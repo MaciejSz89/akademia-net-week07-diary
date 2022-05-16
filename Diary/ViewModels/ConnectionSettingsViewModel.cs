@@ -99,7 +99,7 @@ namespace Diary.ViewModels
         public ICommand ConfirmCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
-       
+        
 
 
 

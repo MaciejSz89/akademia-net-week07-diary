@@ -196,7 +196,7 @@ namespace Diary
         {
             get
             {
-                return _isServerAddressValid && _isServerNameValid && _isUserIdValid && _isPasswordValid;
+                return _isServerAddressValid && _isServerNameValid && _isDatabaseNameValid && _isUserIdValid && _isPasswordValid;
             }
         }
     }

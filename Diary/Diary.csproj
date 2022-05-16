@@ -213,10 +213,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Components\BindablePasswordBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AddEditStudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,9 +228,6 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Commands\AsyncRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Components\BindablePasswordBox.xaml.cs">
-      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202205042156082_InitialCreate.cs" />
     <Compile Include="Migrations\202205042156082_InitialCreate.designer.cs">
       <DependentUpon>202205042156082_InitialCreate.cs</DependentUpon>
@@ -258,6 +251,7 @@
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Wrappers\GroupWrapper.cs" />
     <Compile Include="Models\Wrappers\StudentWrapper.cs" />
+    <Compile Include="PasswordBoxHelper.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ConnectionSettings.cs" />

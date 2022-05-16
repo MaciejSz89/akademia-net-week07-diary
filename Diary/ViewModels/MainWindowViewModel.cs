@@ -19,27 +19,39 @@ namespace Diary.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
+        private ConnectionSettings _connectionSettings;
         public MainWindowViewModel()
         {
+            _connectionSettings = new ConnectionSettings();
+            RefreshStudentsCommand = new RelayCommand(RefreshStudents);
+            AddStudentCommand = new RelayCommand(AddEditStudent);
+            EditStudentCommand = new RelayCommand(AddEditStudent, CanEditDeleteStudent);
+            DeleteStudentCommand = new AsyncRelayCommand(DeleteStudents, CanEditDeleteStudent);
+            ConnectionSettingsCommand = new RelayCommand(ConnectionSettings);
+            LoadedWindowCommand = new RelayCommand(LoadedWindow);
 
-            var connectionSettings = new ConnectionSettings();
+        }
 
-            if (connectionSettings.IsConnectionAvailable())
+        private async void LoadedWindow(object obj)
+        {
+            if (!_connectionSettings.IsConnectionAvailable())
             {
-                RefreshStudentsCommand = new RelayCommand(RefreshStudents);
-                AddStudentCommand = new RelayCommand(AddEditStudent);
-                EditStudentCommand = new RelayCommand(AddEditStudent, CanEditDeleteStudent);
-                DeleteStudentCommand = new AsyncRelayCommand(DeleteStudents, CanEditDeleteStudent);
-                ConnectionSettingsCommand = new RelayCommand(ConnectionSettings);
-
-                RefreshDiary();
-                InitGroups();
-
+                var metroWindow = Application.Current.MainWindow as MetroWindow;
+                var dialog = await metroWindow.ShowMessageAsync("Nie można nawiązać połączenia z bazą danych", "Czy chcesz poprawić ustawienia połączenia?", MessageDialogStyle.AffirmativeAndNegative);
+                if (dialog == MessageDialogResult.Affirmative)
+                {
+                    var connectionSettingsView = new ConnectionSettingsView(false);
+                    connectionSettingsView.ShowDialog();
+                }
+                else if (dialog == MessageDialogResult.Negative)
+                {
+                    Application.Current.Shutdown();
+                }
             }
             else
             {
-                DisplayConnectionErrorMessage();
+                RefreshDiary();
+                InitGroups();
             }
 
 
@@ -49,9 +61,9 @@ namespace Diary.ViewModels
         {
             var metroWindow = Application.Current.MainWindow as MetroWindow;
             var dialog = await metroWindow.ShowMessageAsync("Nie można nawiązać połączenia z bazą danych", "Czy chcesz poprawić ustawienia połączenia?", MessageDialogStyle.AffirmativeAndNegative);
-            if(dialog==MessageDialogResult.Affirmative)
+            if (dialog == MessageDialogResult.Affirmative)
             {
-                var connectionSettingsView = new ConnectionSettingsView();
+                var connectionSettingsView = new ConnectionSettingsView(true);
                 connectionSettingsView.ShowDialog();
             }
             else
@@ -61,17 +73,17 @@ namespace Diary.ViewModels
         }
 
         private ObservableCollection<StudentWrapper> _students;
-        public ObservableCollection<StudentWrapper> Students 
-        { 
+        public ObservableCollection<StudentWrapper> Students
+        {
             get
             {
                 return _students;
             }
-            set 
-            { 
+            set
+            {
                 _students = value;
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
         private ObservableCollection<Group> _groups;
 
@@ -126,6 +138,7 @@ namespace Diary.ViewModels
         public ICommand EditStudentCommand { get; set; }
         public ICommand DeleteStudentCommand { get; set; }
         public ICommand ConnectionSettingsCommand { get; set; }
+        public ICommand LoadedWindowCommand { get; set; }
 
         public void RefreshStudents(object obj)
         {
@@ -181,7 +194,7 @@ namespace Diary.ViewModels
 
         private void ConnectionSettings(object obj)
         {
-            var connectionSettingsView = new ConnectionSettingsView();
+            var connectionSettingsView = new ConnectionSettingsView(true);
             connectionSettingsView.ShowDialog();
         }
     }

@@ -21,10 +21,10 @@ namespace Diary.Views
     /// </summary>
     public partial class ConnectionSettingsView : MetroWindow
     {
-        public ConnectionSettingsView()
+        public ConnectionSettingsView(bool canCloseWindow)
         {
             InitializeComponent();
-            DataContext = new ConnectionSettingsViewModel();
+            DataContext = new ConnectionSettingsViewModel(canCloseWindow);
         }
     }
 }

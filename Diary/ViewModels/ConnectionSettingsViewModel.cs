@@ -16,6 +16,7 @@ namespace Diary.ViewModels
     {
 
         private ConnectionSettings _connectionSettings;
+        private readonly bool _canCloseWindow;
 
         public ConnectionSettings ConnectionSettings
         {
@@ -27,13 +28,14 @@ namespace Diary.ViewModels
             }
         }
 
-        public ConnectionSettingsViewModel()
+        public ConnectionSettingsViewModel(bool canCloseWindow)
         {
-        
+
             ConnectionSettings = new ConnectionSettings();
 
             ConfirmCommand = new AsyncRelayCommand(Confirm, CanConfirm);
             CloseCommand = new RelayCommand(Close);
+            _canCloseWindow = canCloseWindow;
         }
 
         private bool CanConfirm(object arg)
@@ -43,7 +45,10 @@ namespace Diary.ViewModels
 
         private void Close(object obj)
         {
-            CloseWindow(obj as Window);
+            if (_canCloseWindow)
+                CloseWindow(obj as Window);
+            else
+                Application.Current.Shutdown();
         }
 
         private void CloseWindow(Window window)
@@ -57,7 +62,7 @@ namespace Diary.ViewModels
             var settingsSaved = ConnectionSettings.Save();
 
             if (settingsSaved)
-            {                
+            {
                 Repository.RestartApplication();
             }
             else
@@ -99,7 +104,7 @@ namespace Diary.ViewModels
         public ICommand ConfirmCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
-        
+
 
 
 

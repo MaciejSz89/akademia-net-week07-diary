@@ -260,6 +260,7 @@
     <Compile Include="Models\Wrappers\StudentWrapper.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ConnectionSettings.cs" />
     <Compile Include="ViewModels\AddEditStudentViewModel.cs" />
     <Compile Include="ViewModels\ConnectionSettingsViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

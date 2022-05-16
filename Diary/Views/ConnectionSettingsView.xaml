@@ -25,19 +25,40 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Adres serwera:" Margin="5"/>
-        <TextBox Grid.Column="1" Margin="5" Text="{Binding ServerAddress}"/>
+        <TextBox Grid.Column="1" Margin="5" Text="{Binding ConnectionSettings.ServerAddress}"/>
 
         <Label Grid.Row="1"  Content="Nazwa serwera:" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding ServerName}"/>
+        <TextBox Grid.Row="1" 
+                 Grid.Column="1" 
+                 Margin="5" 
+                 Text="{Binding ConnectionSettings.ServerName, 
+                        UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnDataErrors=True}"/>
         
         <Label Grid.Row="2" Content="Baza danych:" Margin="5"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding DatabaseName}"/>
+        <TextBox Grid.Row="2" 
+                 Grid.Column="1" 
+                 Margin="5" 
+                 Text="{Binding ConnectionSettings.DatabaseName, 
+                        UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnDataErrors=True}"/>
 
         <Label Grid.Row="3" Content="Użytkownik:" Margin="5"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding UserId}"/>
+        <TextBox Grid.Row="3" 
+                 Grid.Column="1" 
+                 Margin="5" 
+                 Text="{Binding ConnectionSettings.UserId, 
+                        UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnDataErrors=True}"/>
 
         <Label Grid.Row="4" Content="Hasło:" Margin="5"/>
-        <components:BindablePasswordBox Password="{Binding Password}"  Grid.Row="4" Grid.Column="1" Margin="5"/>
+        <components:BindablePasswordBox 
+                            Password="{Binding ConnectionSettings.Password, 
+                            UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True}"  
+                            Grid.Row="4" 
+                            Grid.Column="1" 
+                            Margin="5"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right">
             <Button 

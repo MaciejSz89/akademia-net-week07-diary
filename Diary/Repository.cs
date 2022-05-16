@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,40 +18,11 @@ namespace Diary
     {
         public static void RestartApplication()
         {
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
 
-        public static bool IsConnectionAvailable()
-        {
-            var serverAddress = Properties.Settings.Default.ServerAddress;
-            var serverName = Properties.Settings.Default.ServerName;
-            var userId = Properties.Settings.Default.UserId;
-            var password = Properties.Settings.Default.Password;
-            var connectionString = $@"Server={serverAddress}\{serverName};User Id={userId};Password={password};";
-
-            return IsConnectionAvailable(connectionString);
-        }
-
-        public static bool IsConnectionAvailable(string connectionString)
-        {
-
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                connection.Close();
-            }
-
-            return true;
-        }
+        
         public List<Group> GetGroups()
         {
             using (var context = new ApplicationDbContext())

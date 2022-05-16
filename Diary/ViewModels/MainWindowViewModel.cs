@@ -8,6 +8,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,9 @@ namespace Diary.ViewModels
         public MainWindowViewModel()
         {
 
-            if (Repository.IsConnectionAvailable())
+            var connectionSettings = new ConnectionSettings();
+
+            if (connectionSettings.IsConnectionAvailable())
             {
                 RefreshStudentsCommand = new RelayCommand(RefreshStudents);
                 AddStudentCommand = new RelayCommand(AddEditStudent);
@@ -32,6 +35,7 @@ namespace Diary.ViewModels
 
                 RefreshDiary();
                 InitGroups();
+
             }
             else
             {

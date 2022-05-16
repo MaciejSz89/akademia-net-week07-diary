@@ -15,24 +15,27 @@ namespace Diary.ViewModels
     public class ConnectionSettingsViewModel : ViewModelBase
     {
 
+        private ConnectionSettings _connectionSettings;
+
+        public ConnectionSettings ConnectionSettings
+        {
+            get { return _connectionSettings; }
+            set
+            {
+                _connectionSettings = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ConnectionSettingsViewModel()
         {
             ConfirmCommand = new AsyncRelayCommand(Confirm);
             CloseCommand = new RelayCommand(Close);
-
-            LoadConnectionSettings();
-        }
-
-        private void LoadConnectionSettings()
-        {
-            ServerAddress = Properties.Settings.Default.ServerAddress;
-            ServerName = Properties.Settings.Default.ServerName;
-            DatabaseName = Properties.Settings.Default.DatabaseName;
-            UserId = Properties.Settings.Default.UserId;
-            Password = Properties.Settings.Default.Password;
-
+            ConnectionSettings = new ConnectionSettings();
+ 
 
         }
+
 
         private void Close(object obj)
         {
@@ -46,11 +49,11 @@ namespace Diary.ViewModels
 
         private async Task Confirm(object obj)
         {
-            var connectionString = $@"Server={ServerAddress}\{ServerName};User Id={UserId};Password={Password};";
 
-            if (Repository.IsConnectionAvailable(connectionString))
-            {
-                SaveConnectionSettings();
+            var settingsSaved = ConnectionSettings.Save();
+
+            if (settingsSaved)
+            {                
                 Repository.RestartApplication();
             }
             else
@@ -86,79 +89,13 @@ namespace Diary.ViewModels
             }
         }
 
-        private void SaveConnectionSettings()
-        {
-            Properties.Settings.Default.ServerAddress = ServerAddress;
-            Properties.Settings.Default.ServerName = ServerName;
-            Properties.Settings.Default.DatabaseName = DatabaseName;
-            Properties.Settings.Default.UserId = UserId;
-            Properties.Settings.Default.Password = Password;
-            Properties.Settings.Default.Save();
-        }
 
 
 
         public ICommand ConfirmCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
-        private string _serverAddress;
-
-        public string ServerAddress
-        {
-            get { return _serverAddress; }
-            set
-            {
-                _serverAddress = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private string _serverName;
-
-        public string ServerName
-        {
-            get { return _serverName; }
-            set
-            {
-                _serverName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _databaseName;
-
-        public string DatabaseName
-        {
-            get { return _databaseName; }
-            set
-            {
-                _databaseName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _userId;
-
-        public string UserId
-        {
-            get { return _userId; }
-            set
-            {
-                _userId = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _password;
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                _password = value;
-
-            }
-        }
+       
 
 
 

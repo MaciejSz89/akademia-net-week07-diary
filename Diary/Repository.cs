@@ -16,11 +16,6 @@ namespace Diary
 {
     public class Repository
     {
-        public static void RestartApplication()
-        {
-            Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
-        }
 
         
         public List<Group> GetGroups()

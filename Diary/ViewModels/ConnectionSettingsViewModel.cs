@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace Diary.ViewModels
 
             if (settingsSaved)
             {
-                Repository.RestartApplication();
+                RestartApplication();
             }
             else
             {
@@ -105,6 +106,11 @@ namespace Diary.ViewModels
         public ICommand CloseCommand { get; set; }
 
 
+        private void RestartApplication()
+        {
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
 
 
 
